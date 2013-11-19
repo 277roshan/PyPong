@@ -48,14 +48,15 @@ while done == False:
 	''' GAME LOGIC STARTS '''
 	''' BOUNCING THE BALL LOGIC STARTS '''
 	if circle_x == 695 or circle_x < 0:
-		circle_x_change = (circle_x_change * -1)
+		circle_x_change *= -1
 	if circle_y > 495 or circle_y < 0:
-		circle_y_change = (circle_y_change * -1)
+		circle_y_change *= -1
 	''' BOUNCING THE BALL LOGIC ENDS '''
 	''' BALL-RACQUET COLLISION TESTING BEGINS '''
-	if circle_x == (racquet1_x) or circle_x == (racquet2_x):
-		circle_x_change = (circle_x_change * -1)
-	if circle_y == (racquet1_y + 40) or circle_y == (racquet2_y + 12):
+	if (20<=circle_x<=32) and (20<circle_y==60):
+		circle_x_change *= -1
+		circle_y_change *= -1
+	if (670<=circle_x<=692) and (440<=circle_y<=480):
 		circle_y_change = (circle_y_change * -1)
 	''' BALL-RACQUET COLLISION TESTING ENDS '''
 	''' GAME LOGIC ENDS '''
