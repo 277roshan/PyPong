@@ -17,55 +17,72 @@ pygame.display.set_caption("PyPong")
 done = False
 
 clock = pygame.time.Clock()
+
 circle_x, circle_y = 350, 250
 circle_x_change, circle_y_change = 5, 5
 
-racquet1_x, racquet1_y = 670, 440
+
+
+racquet1_x1, racquet1_y1 = 680, 440
+racquet1_x2, racquet1_y2 = None, None
+racquet1_width = -12
+racquet1_length = -40
 racquet1_x_change, racquet1_y_change = 5, 5
 
-racquet2_x, racquet2_y = 20, 20
+racquet2_x1, racquet2_y1 = 20, 20
+racquet2_x2, racquet2_y2 = None, None
+racquet2_width = 12
+racquet2_length = 40
 racquet2_x_change, racquet2_y_change = 5, 5
 
-racquet_width = 12
-racquet_length = 40
+border_color = green
 
 ''' -------- Main Program Loop Begins -------- '''
 while done == False:
 	''' EVENT PROCESSING STARTS '''
 	for event in pygame.event.get(): # User did something
 		if event.type == pygame.QUIT: # If user clicked close
-			done = True # Flag that we are done so we exit this loop
-		if event.type == KEYDOWN:
-			if event.key == K_UP:
-				racquet1_y -= racquet1_y_change
-			if event.key == K_DOWN:
-				racquet1_y += racquet1_y_change
-			if event.key == ord('w'):
-				racquet2_y -= racquet2_y_change
-			if event.key == ord('s'):
-				racquet2_y += racquet2_y_change
+			done = True # Flag that we are done so we exit this loop 
+	keys_held = pygame.key.get_pressed()
+	if keys_held[K_UP]:
+		racquet1_y1 -= racquet1_y_change
+	if keys_held[K_DOWN]:
+		racquet1_y1 += racquet1_y_change
+	if keys_held[ord('w')]:
+		racquet2_y1 -= racquet2_y_change
+	if keys_held[ord('s')]:
+		racquet2_y1 += racquet2_y_change
 	''' EVENT PROCESSING ENDS '''
 	''' GAME LOGIC STARTS '''
 	''' BOUNCING THE BALL LOGIC STARTS '''
-	if circle_x == 695 or circle_x < 0:
+	if circle_x > 684 or circle_x < 16:
 		circle_x_change *= -1
-	if circle_y > 495 or circle_y < 0:
+		print "Bounced off the Left or Right"
+	if circle_y > 484 or circle_y < 16:
 		circle_y_change *= -1
+		print "Bounced off the Top of Bottom"
 	''' BOUNCING THE BALL LOGIC ENDS '''
 	''' BALL-RACQUET COLLISION TESTING BEGINS '''
-	if (20<=circle_x<=32) and (20<circle_y==60):
+	if ((racquet1_x1<circle_x<racquet1_x2) and (racquet1_y1<circle_y<racquet1_y2)): 
 		circle_x_change *= -1
 		circle_y_change *= -1
-	if (670<=circle_x<=692) and (440<=circle_y<=480):
-		circle_y_change = (circle_y_change * -1)
+		print "Ball hit player 1's racquet!"
+	if ((racquet2_x1<circle_x<racquet1_x2) and (racquet2_y1<circle_y<racquet2_y2)):
+		circle_x_change *= -1
+		circle_y_change *= -1
+		print "Ball hit player 2's racquet!"
 	''' BALL-RACQUET COLLISION TESTING ENDS '''
 	''' GAME LOGIC ENDS '''
 	''' DRAW CODE STARTS'''
 	Surface.fill(black)
-	pygame.draw.circle(Surface, white, (circle_x, circle_y), 4, 0) 
-	pygame.draw.rect(Surface, red,[racquet1_x, racquet1_y, racquet_width, racquet_length])
-	pygame.draw.rect(Surface, blue,[racquet2_x, racquet2_y, racquet_width, racquet_length])
-
+	pygame.draw.circle(Surface,white,(circle_x,circle_y),4,0) #Ball
+	pygame.draw.rect(Surface,red,[racquet1_x1,racquet1_y1,racquet1_width,racquet1_length]) #Player 1
+	pygame.draw.rect(Surface,blue,[racquet2_x1,racquet2_y1,racquet2_width,racquet2_length]) #Player 2
+	''' GAME ARENA DRAW CODE '''
+	pygame.draw.rect(Surface,border_color,[0,0,10,700]) #Left Goal
+	pygame.draw.rect(Surface,border_color,[0,500,700,-10]) #Bottom
+	pygame.draw.rect(Surface,border_color,[700,500,-10,-700]) #Right Goal
+	pygame.draw.rect(Surface,border_color,[700,0,-700,10]) #Top
 	''' DRAW CODE ENDS '''
 	''' SCREEN UPDATE STARTS '''
 	pygame.display.flip()
@@ -74,6 +91,9 @@ while done == False:
 	''' MISC CHANGES BEGIN'''
 	circle_x += circle_x_change 
 	circle_y += circle_y_change
+	racquet1_x2, racquet1_y2 = (racquet1_x1+racquet1_width), (racquet1_y1+racquet1_length)
+	racquet2_x2, racquet2_y2 = (racquet2_x1+racquet2_width), (racquet2_y1+racquet2_length)
+	print "The Ball Position is (%d,%d), Racquet1's Parameters are (%d,%d) and (%d,%d), Racquet2's Parameters are (%d,%d) and (%d,%d)\n" %(circle_x,circle_y, racquet1_x1,racquet1_y1, racquet1_x2,racquet1_y2, racquet2_x1,racquet2_y1, racquet2_x2,racquet2_y2)
 	''' MISC CHANGES END '''
 ''' -------- Main Program Loop Ends -------- '''
 pygame.quit()
