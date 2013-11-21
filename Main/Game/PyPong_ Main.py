@@ -57,18 +57,14 @@ while done == False:
 	''' BOUNCING THE BALL LOGIC STARTS '''
 	if circle_x > 684 or circle_x < 16:
 		circle_x_change *= -1
-		print "Bounced off the Left or Right"
 	if circle_y > 484 or circle_y < 16:
 		circle_y_change *= -1
-		print "Bounced off the Top of Bottom"
 	''' BOUNCING THE BALL LOGIC ENDS '''
 	''' BALL-RACQUET COLLISION TESTING BEGINS '''
-	if (circle_x==racquet1_x2) and (racquet1_y2<=circle_y<=racquet1_y1): 
+	if (circle_x==racquet1_x2) and (racquet1_y2<circle_y<racquet1_y1): 
 		circle_x_change *= -1
-		print "Ball hit player 1's racquet!"
-	if (circle_x==racquet2_x2) and (racquet2_y1<=circle_y<=racquet2_y2):
+	if (circle_x==racquet2_x2) and (racquet2_y1<circle_y<racquet2_y2):
 		circle_x_change *= -1
-		print "Ball hit player 2's racquet!"
 	''' BALL-RACQUET COLLISION TESTING ENDS '''
 	''' GAME LOGIC ENDS '''
 	''' DRAW CODE STARTS'''
@@ -91,7 +87,6 @@ while done == False:
 	circle_y += circle_y_change
 	racquet1_x2, racquet1_y2 = (racquet1_x1+racquet1_width), (racquet1_y1+racquet1_length)
 	racquet2_x2, racquet2_y2 = (racquet2_x1+racquet2_width), (racquet2_y1+racquet2_length)
-	print "%d is equal to %d and %d is greater than %d and less than %d " %(circle_x, racquet2_x2, circle_y, racquet2_y1,racquet2_y2)
 	''' MISC CHANGES END '''
 ''' -------- Main Program Loop Ends -------- '''
 pygame.quit()
