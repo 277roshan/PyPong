@@ -25,13 +25,13 @@ circle_x_change, circle_y_change = 5, 5
 
 racquet1_x1, racquet1_y1 = 680, 440
 racquet1_x2, racquet1_y2 = None, None
-racquet1_width = -12
+racquet1_width = -10
 racquet1_length = -40
 racquet1_x_change, racquet1_y_change = 5, 5
 
 racquet2_x1, racquet2_y1 = 20, 20
 racquet2_x2, racquet2_y2 = None, None
-racquet2_width = 12
+racquet2_width = 10
 racquet2_length = 40
 racquet2_x_change, racquet2_y_change = 5, 5
 
@@ -63,13 +63,11 @@ while done == False:
 		print "Bounced off the Top of Bottom"
 	''' BOUNCING THE BALL LOGIC ENDS '''
 	''' BALL-RACQUET COLLISION TESTING BEGINS '''
-	if ((racquet1_x1<circle_x<racquet1_x2) and (racquet1_y1<circle_y<racquet1_y2)): 
+	if (circle_x==racquet1_x2) and (racquet1_y2<=circle_y<=racquet1_y1): 
 		circle_x_change *= -1
-		circle_y_change *= -1
 		print "Ball hit player 1's racquet!"
-	if ((racquet2_x1<circle_x<racquet1_x2) and (racquet2_y1<circle_y<racquet2_y2)):
+	if (circle_x==racquet2_x2) and (racquet2_y1<=circle_y<=racquet2_y2):
 		circle_x_change *= -1
-		circle_y_change *= -1
 		print "Ball hit player 2's racquet!"
 	''' BALL-RACQUET COLLISION TESTING ENDS '''
 	''' GAME LOGIC ENDS '''
@@ -93,7 +91,7 @@ while done == False:
 	circle_y += circle_y_change
 	racquet1_x2, racquet1_y2 = (racquet1_x1+racquet1_width), (racquet1_y1+racquet1_length)
 	racquet2_x2, racquet2_y2 = (racquet2_x1+racquet2_width), (racquet2_y1+racquet2_length)
-	print "The Ball Position is (%d,%d), Racquet1's Parameters are (%d,%d) and (%d,%d), Racquet2's Parameters are (%d,%d) and (%d,%d)\n" %(circle_x,circle_y, racquet1_x1,racquet1_y1, racquet1_x2,racquet1_y2, racquet2_x1,racquet2_y1, racquet2_x2,racquet2_y2)
+	print "%d is equal to %d and %d is greater than %d and less than %d " %(circle_x, racquet2_x2, circle_y, racquet2_y1,racquet2_y2)
 	''' MISC CHANGES END '''
 ''' -------- Main Program Loop Ends -------- '''
 pygame.quit()
