@@ -17,6 +17,8 @@ pygame.display.set_caption("PyPong")
 
 done = False
 
+clock = pygame.time.Clock()
+
 circle_x, circle_y = 350, 250
 default_circle_x, default_circle_y = 350, 250
 circle_x_change, circle_y_change = 5, 5
@@ -67,8 +69,8 @@ while done == False:
 	circle_y += circle_y_change
 	racquet1_x2, racquet1_y2 = (racquet1_x1+racquet1_width), (racquet1_y1+racquet1_length)
 	racquet2_x2, racquet2_y2 = (racquet2_x1+racquet2_width), (racquet2_y1+racquet2_length)
-	p1_score = score_font.render("%d"%(p1_score_count), 1,red)
-	p2_score = score_font.render("%d"%(p2_score_count),1,blue)
+	p1_score = score_font.render(str(p1_score_count), 1,red)
+	p2_score = score_font.render(str(p2_score_count),1,blue)
 	''' GAME VARIABLES END '''
 	''' GAME LOGIC STARTS '''
 	''' BOUNCING THE BALL LOGIC STARTS '''
