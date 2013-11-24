@@ -1,14 +1,12 @@
 import pygame
 from pygame.locals import *
 
-import random
-import sys
-black = ( 0, 0, 0)
-white = ( 255, 255, 255)
-default_border_color= green = ( 0, 255, 0)
-p1_point = red = ( 255, 0, 0)
-p2_point = blue = ( 0, 0, 255)
-Score_board = orange = (255, 127, 0)
+from Colors import *
+
+default_border_color = green
+p1_point = red
+p2_point = blue
+Score_board = orange
 pygame.init()
 
 size = [700,600]
@@ -60,7 +58,7 @@ while done == False:
 	if keys_held[ord('s')]:
 		racquet2_y1 += racquet2_y_change
 	''' EVENT PROCESSING ENDS '''
-	''' GAME VARIABLES BEGIN '''
+	''' GAME VARIABLES STARTS '''
 	p1_border_color = default_border_color
 	p2_border_color = default_border_color
 	Top_border_color = default_border_color
